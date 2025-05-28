@@ -8,7 +8,7 @@ Genera una lista de Usuarios en las recompensas que tiene kick, esto es mas que 
 
 ## Instalación
 
-Descarga el repositorio como .zip y arrastra el archivo a tu seccion de extenciones en Google Chrome
+Descarga el repositorio como .zip y arrastra el archivo a tu seccion de extenciones en Google Chrome (debes activar el modo desarrollador para poder hacerlo)
 
 
 ## Configuracion
