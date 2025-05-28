@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Kick reedemss",
+  "version": "1.0",
+  "description": "Genera una lista de los usuarios que canjearon recompensas",
+  "action": {
+  
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://dashboard.kick.com/*"],
+      "js": ["js/jquery.min.js", "content.js"],
+      "css": ["style.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

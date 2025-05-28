@@ -1,0 +1,98 @@
+.kick-generar {
+    position: absolute;
+    top: 15px;
+    right: 47%;
+    font-weight: bold;
+    color: #eee;
+    z-index: 99999;
+
+    background-color: #323436;
+    padding: 5px 30px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.kick-generar:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.kick-consola {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    height: 35vw;
+    background-color: #141517;
+    z-index: 9999;
+    border-style: solid;
+    border-color: #000;
+    border-width: 3px;
+    border-radius: 7px;
+    box-shadow: 0 0 20px 8px #00000045;
+
+    display: grid; 
+    grid-template-columns: 1fr; 
+    grid-template-rows: 0.12fr 1.88fr;
+    gap: 0px 0px; 
+    grid-template-areas: 
+        "."
+        "."; 
+}
+
+.kick-title {
+    background-color: #1c1e21;
+}
+
+.kick-content {
+    display: flex;
+    gap: 2px 0px;
+    grid-auto-flow: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: flex-start;
+    padding: 3px 20px;
+    overflow: auto;
+}
+
+.kick-log {
+    width: 100%;
+    color: #eee;
+}
+
+.tit {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.kick-but, .kick-copy-btn {
+    width: 95%;
+    align-self: center;
+    margin: 5px;
+
+    background-color: #323436;
+    padding: 5px 30px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.kick-but:hover, .kick-copy-btn:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.kick-title{
+    text-align: center;
+    font-weight: bold;
+    padding: 6px;
+}
