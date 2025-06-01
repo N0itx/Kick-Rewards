@@ -8,7 +8,9 @@ $(document).ready(async function () {
         channelName = $('nav > div').last().find('button img').attr('alt');// Obtenemos el username desde el alt de la imagen
     }
 
-    const authToken = '1344232|weiojdwiejfo324ijf2oiwejcd2oiejfcwoieejcwoidjc'; // Token de la cuenta que nos permitira hacer la peticion
+    const authToken = '203792012|K2lXBrsbFkat7ANjkBUgmHn2ftrQRVJGpJriBK4J'; // Token de la cuenta que nos permitira hacer la peticion
+
+
 
     async function fetchRewards() {
         //URL Base
