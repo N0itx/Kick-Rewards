@@ -1,14 +1,20 @@
 $(document).ready(async function () {
-
-    const channelName =  window.location.href.split('/')[4];// Obtenemos el username del canal por la URL
     
-    //ESTE TOKEN ES DE EJEMPLO, PUEDEN VER EL SUYO DESDE LA CONSOLA DE CHROME Y VER EL TOKEN DESDE LA PETICION YA QUE KICK NO TIENE API PARA ESTO
-    const authToken = '1344232|weiojdwiejfo324ijf2oiwejcd2oiejfcwoieejcwoidjc'; // Token de la cuenta que nos permitira hacer la peticion (chrome consola - red - peticion url)
+    let channelName = '';
+    //Obtenemos el username para la API dependiendo de donde se esta haciendo la peticion (streamer/moderador)
+    if (window.location.href.includes('moderator')) {
+        channelName =  window.location.href.split('/')[4];// Obtenemos el username del canal por la URL
+    } else {
+        channelName = $('nav > div').last().find('button img').attr('alt');// Obtenemos el username desde el alt de la imagen
+    }
+
+    const authToken = '1344232|weiojdwiejfo324ijf2oiwejcd2oiejfcwoieejcwoidjc'; // Token de la cuenta que nos permitira hacer la peticion
 
     async function fetchRewards() {
-        //URL API (chrome consola - red)
+        //URL Base
         let url = `https://kick.com/api/v2/channels/${channelName}/redemption-metadata`
 
+        // Opciones para la peticion fetch
         const options = {
             headers: {
                 "accept": "application/json",
@@ -53,6 +59,7 @@ $(document).ready(async function () {
 
             const data = await fetchRewards();
 
+            // Extraemos los rewards de la respuesta
             if (data.data && data.data.redemptions && Array.isArray(data.data.redemptions)) {
                 allRewards = [...allRewards, ...data.data.redemptions];
             }
@@ -70,16 +77,17 @@ $(document).ready(async function () {
         return rewards.map(rewards => rewards);
     }
 
+    // Función para realizar las peticiones a la API
     async function fetchRedemptions(nextPageToken = null, rewardID = null) {
-        // URL base (chrome consola - red - precionar el reward)
+        // URL base
         let url = `https://kick.com/api/v2/channels/${channelName}/redemptions?reward_id=${rewardID}`;
 
-        // Por si hay un token de siguiente pagina
+        // Si hay un token de siguiente pagina, lo añadimos a la URL
         if (nextPageToken) {
             url += `&next_page_token=${nextPageToken}`;
         }
 
-        // Fetch como lo hace desde dashboard
+        // Opciones para la peticion fetch
         const options = {
             headers: {
                 "accept": "application/json",
@@ -117,6 +125,7 @@ $(document).ready(async function () {
         }
     }
 
+    // Funcion principal que realizara todas las peticiones necesarias
     async function getAllRedemptions(rewardId) {
         let allRedemptions = [];
         let nextPageToken = null;
@@ -133,15 +142,18 @@ $(document).ready(async function () {
 
                 const data = await fetchRedemptions(nextPageToken, rewardId);
 
+                // Extraemos los canejos de la respuesta
                 if (data.data && data.data.redemptions && Array.isArray(data.data.redemptions)) {
                     playerCount += data.data.redemptions.length;
                     allRedemptions = [...allRedemptions, ...data.data.redemptions];
                 }
 
+                // Verificamos si hay un token para la siguiente pagina
                 nextPageToken = data.data && data.data.next_page_token ?
                     data.data.next_page_token :
                     null;
 
+                // Por si estamos haciendo muchas peticiones (para evitar ser limitados por la API o Baneo)
                 if (nextPageToken) {
                     await new Promise(resolve => setTimeout(resolve, 500));
                 }
@@ -158,22 +170,26 @@ $(document).ready(async function () {
         }
     }
 
+    // Función para extraer solo los usernames de los canejos
     function extractUsernames(redemptions) {
         return redemptions.map(redemption => redemption.username);
     }
 
+    // Nueva función para contar canjeos por usuario y obtener el top 10
     function getTop10Users(redemptions) {
         const userCounts = {};
         
+        // Contar canjeos por usuario
         redemptions.forEach(redemption => {
             const username = redemption.username;
             userCounts[username] = (userCounts[username] || 0) + 1;
         });
         
+        // Convertir a array y ordenar por cantidad de canjeos (descendente)
         const sortedUsers = Object.entries(userCounts)
             .map(([username, count]) => ({ username, count }))
             .sort((a, b) => b.count - a.count)
-            .slice(0, 10);
+            .slice(0, 10); // Tomar solo los primeros 10
         
         return sortedUsers;
     }
@@ -237,10 +253,11 @@ $(document).ready(async function () {
     // Event listener para el botón de copiar
     $(document).on('click', '.kick-copy-btn', function() {
         const usernames = JSON.parse($(this).attr('data-usernames'));
-        const usernameList = usernames.join('\n');
+        const usernameList = usernames.join('\n'); // Une los usernames con salto de línea, sin comas
         
+        // Copiar al portapapeles
         navigator.clipboard.writeText(usernameList).then(function() {
-
+            // Cambiar temporalmente el texto del botón para confirmar
             const originalText = $('.kick-copy-btn').text();
             $('.kick-copy-btn').text('✅ COPIADO!');
             setTimeout(() => {
@@ -248,7 +265,7 @@ $(document).ready(async function () {
             }, 2000);
         }).catch(function(err) {
             console.error('Error al copiar: ', err);
-
+            // Fallback para navegadores que no soporten clipboard API
             const textArea = document.createElement('textarea');
             textArea.value = usernameList;
             document.body.appendChild(textArea);
@@ -266,5 +283,5 @@ $(document).ready(async function () {
 
 });
 
-//TEMP
+
 // $('.kick-content').append(`<div class="kick-log">${}</div>`)
