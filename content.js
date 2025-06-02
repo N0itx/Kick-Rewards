@@ -8,9 +8,7 @@ $(document).ready(async function () {
         channelName = $('nav > div').last().find('button img').attr('alt');// Obtenemos el username desde el alt de la imagen
     }
 
-    const authToken = '203792012|K2lXBrsbFkat7ANjkBUgmHn2ftrQRVJGpJriBK4J'; // Token de la cuenta que nos permitira hacer la peticion
-
-
+    const authToken = '1344232|weiojdwiejfo324ijf2oiwejcd2oiejfcwoieejcwoidjc'; // Token de la cuenta que nos permitira hacer la peticion
 
     async function fetchRewards() {
         //URL Base
@@ -202,9 +200,15 @@ $(document).ready(async function () {
 
         $('body').append(`
         <div class="kick-consola">
-            <div class="kick-title">SCRAP JSON DATA FROM KICK</div>
+            <div class="kick-title">SCRAP JSON DATA FROM KICK
+                <div class="kick-close">x</div>
+            </div>
             <div class="kick-content"></div>
         </div>`)
+
+        $('.kick-close').click(function () {
+            $(".kick-consola").remove();
+        });
 
         getAllRewards()
         .then(rewards => {
@@ -284,6 +288,5 @@ $(document).ready(async function () {
     });
 
 });
-
 
 // $('.kick-content').append(`<div class="kick-log">${}</div>`)

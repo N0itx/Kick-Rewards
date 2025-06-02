@@ -96,3 +96,11 @@
     font-weight: bold;
     padding: 6px;
 }
+
+.kick-close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 1px 20px;
+    cursor: pointer;
+}
