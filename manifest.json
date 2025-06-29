@@ -1,14 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "Kick reedemss",
-  "version": "1.0",
+  "name": "Kick Rewards",
+  "version": "2.0",
   "description": "Genera una lista de los usuarios que canjearon recompensas",
-  "action": {
-  
-  },
   "permissions": [
     "activeTab",
+    "webRequest",
     "storage"
+  ],
+  "host_permissions": [
+    "*://kick.com/*",
+    "*://*.kick.com/*"
   ],
   "background": {
     "service_worker": "background.js"
