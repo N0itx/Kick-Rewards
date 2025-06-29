@@ -1,6 +1,6 @@
 # Política de Privacidad - Kick Rewards Extension
 
-**Última actualización:** [Fecha actual]
+**Última actualización:** [28/05/2025]
 
 ## Información que recopilamos
 
@@ -59,7 +59,6 @@ Notificaremos cualquier cambio significativo en esta política de privacidad med
 
 Si tienes preguntas sobre esta política de privacidad, puedes contactarnos a través de:
 - **Email:** [mikelgt.201@gmail.com]
-- **Soporte:** [Link de soporte o formulario de contacto]
 
 ## Cumplimiento
 
