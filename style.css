@@ -1,106 +1,471 @@
-.kick-generar {
-    position: absolute;
-    top: 15px;
-    right: 47%;
-    font-weight: bold;
-    color: #eee;
-    z-index: 99999;
-
-    background-color: #323436;
-    padding: 5px 30px;
-    border-radius: 3px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: .3s;
+/* Variables CSS para consistencia y fácil mantenimiento */
+:root {
+  --primary-bg: #0f1114;
+  --secondary-bg: #1a1d21;
+  --tertiary-bg: #252830;
+  --accent-color: #2cee00;
+  --accent-hover: #25c900;
+  --text-primary: #ffffff;
+  --text-secondary: #b8bcc8;
+  --text-muted: #6c757d;
+  --border-color: #2d3748;
+  --shadow-light: rgba(0, 212, 170, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.3);
+  --border-radius: 8px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Botón principal mejorado */
+.kick-generar {
+  position: absolute;
+  top: 15px;
+  right: 47%;
+  transform: translateX(50%);
+
+  font-weight: 600;
+  font-size: 14px;
+  color: black;
+  z-index: 99999;
+
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  padding: 7px 15px;
+  border-radius: var(--border-radius);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition);
+
+  box-shadow: 0 4px 12px var(--shadow-light), 0 2px 4px var(--shadow-dark);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* .kick-generar::before {
+    content: "🎁";
+    font-size: 16px;
+} */
 
 .kick-generar:hover {
-    cursor: pointer;
-    transform: scale(1.1);
+  transform: translateX(50%) translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px var(--shadow-light), 0 4px 8px var(--shadow-dark);
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-color));
 }
 
+.kick-generar:active {
+  transform: translateX(50%) translateY(0) scale(0.98);
+}
+
+/* Ventana principal rediseñada */
 .kick-consola {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 40vw;
-    height: 35vw;
-    background-color: #141517;
-    z-index: 9999;
-    border-style: solid;
-    border-color: #000;
-    border-width: 3px;
-    border-radius: 7px;
-    box-shadow: 0 0 20px 8px #00000045;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 600px);
+  height: min(85vh, 700px);
 
-    display: grid; 
-    grid-template-columns: 1fr; 
-    grid-template-rows: 0.12fr 1.88fr;
-    gap: 0px 0px; 
-    grid-template-areas: 
-        "."
-        "."; 
+  background: var(--primary-bg);
+  backdrop-filter: blur(20px);
+  z-index: 9999;
+
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow:
+    0 20px 40px var(--shadow-dark),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0;
+
+  overflow: hidden;
+  animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Header mejorado */
 .kick-title {
-    background-color: #1c1e21;
+  background: linear-gradient(135deg, var(--secondary-bg), var(--tertiary-bg));
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 24px;
+  position: relative;
+
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
-.kick-content {
-    display: flex;
-    gap: 2px 0px;
-    grid-auto-flow: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-content: flex-start;
-    align-items: flex-start;
-    padding: 3px 20px;
-    overflow: auto;
+.kick-title::before {
+  content: "⚡";
+  font-size: 24px;
+  animation: pulse 2s infinite;
 }
 
-.kick-log {
-    width: 100%;
-    color: #eee;
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
 }
 
-.tit {
-    text-align: center;
-    font-weight: bold;
-    font-size: 25px;
-}
-
-.kick-but, .kick-copy-btn {
-    width: 95%;
-    align-self: center;
-    margin: 5px;
-
-    background-color: #323436;
-    padding: 5px 30px;
-    border-radius: 3px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.kick-but:hover, .kick-copy-btn:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-}
-
-.kick-title{
-    text-align: center;
-    font-weight: bold;
-    padding: 6px;
-}
-
+/* Botón de cerrar mejorado */
 .kick-close {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    padding: 1px 20px;
-    cursor: pointer;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.kick-close:hover {
+  background: rgba(255, 59, 48, 0.2);
+  color: #ff3b30;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Contenido principal */
+.kick-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  overflow-y: auto;
+  background: var(--primary-bg);
+}
+
+/* Scrollbar personalizado */
+.kick-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.kick-content::-webkit-scrollbar-track {
+  background: var(--secondary-bg);
+  border-radius: 4px;
+}
+
+.kick-content::-webkit-scrollbar-thumb {
+  background: var(--tertiary-bg);
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.kick-content::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* Logs mejorados - versión compacta */
+.kick-log {
+  width: 100%;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.3;
+  padding: 4px 8px;
+  /* border-radius: 4px; */
+  margin-bottom: 2px;
+
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 2px solid transparent;
+  transition: var(--transition);
+}
+
+.kick-log:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--accent-color);
+}
+
+/* Contenedor para top 10 en dos columnas */
+.kick-top10-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.2fr 1.8fr;
+  grid-template-areas:
+    "kick-top10-title"
+    "kick-top10-columns";
+  gap: 8px;
+  margin: 8px 0;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.kick-top10-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    ". .";
+  grid-area: kick-top10-columns;
+}
+
+.kick-top10-column {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.kick-top10-title {
+  justify-self: center;
+  font-weight: 700;
+}
+
+.kick-top10-item {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 3px 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: var(--transition);
+}
+
+.kick-top10-item:hover {
+  background: rgba(0, 212, 170, 0.1);
+  color: var(--text-primary);
+}
+
+/* Separador compacto */
+.kick-spacer {
+  height: 6px;
+}
+
+.kick-spacer.small {
+  height: 3px;
+}
+
+/* Título especial */
+.kick-log.tit {
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--tertiary-bg), var(--secondary-bg));
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.kick-log.tit-s {
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  margin: 15px 0 0 0;
+}
+
+/* Botones mejorados */
+.kick-but,
+.kick-copy-btn {
+  width: 100%;
+  padding: 14px 20px;
+  /* margin: 6px 0; */
+
+  background: linear-gradient(135deg, var(--tertiary-bg), var(--secondary-bg));
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: var(--transition);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.kick-but:hover,
+.kick-copy-btn:hover {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px var(--shadow-light);
+  color: black
+}
+
+.kick-but:active,
+.kick-copy-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px var(--shadow-light);
+}
+
+/* Botón de copia especial */
+.kick-copy-btn {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  border-color: var(--accent-color);
+  font-weight: 600;
+  margin: 16px 0;
+  color: black;
+}
+
+.kick-copy-btn:hover {
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-color));
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Estados de loading */
+.kick-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.kick-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.2), transparent);
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .kick-consola {
+    width: 95vw;
+    height: 90vh;
+    border-radius: 12px;
+  }
+
+  .kick-generar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    transform: none;
+    font-size: 12px;
+    padding: 10px 16px;
+  }
+
+  .kick-content {
+    padding: 16px;
+  }
+
+  .kick-title {
+    padding: 16px 20px;
+    font-size: 16px;
+  }
+}
+
+/* Animaciones adicionales */
+.kick-but,
+.kick-copy-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.kick-but::before,
+.kick-copy-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: var(--transition);
+}
+
+.kick-but:hover::before,
+.kick-copy-btn:hover::before {
+  left: 100%;
+}
+
+/* Efectos de entrada para elementos dinámicos */
+.kick-log,
+.kick-but {
+  animation: fadeInUp 0.3s ease-out forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Delay escalonado para múltiples elementos */
+.kick-log:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.kick-log:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.kick-log:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.kick-but:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.kick-but:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.kick-but:nth-child(3) {
+  animation-delay: 0.3s;
 }
